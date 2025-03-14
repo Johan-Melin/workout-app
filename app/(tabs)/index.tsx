@@ -1,8 +1,38 @@
-import { Image, StyleSheet } from 'react-native';
+import { Image, StyleSheet, FlatList } from 'react-native';
 
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
+
+type Muscle = "Shoulders" | "Biceps" | "Triceps" | "Forearms" | "Chest" | 
+  "Abs" | "Traps" | "Back" | "Lower Back" | "Glutes" | "Quads" | 
+  "Hamstrings" | "Calves";
+
+type Equipment = "Barbell" | "Dumbbell" | "Cable" | "Machine" | "Bodyweight";
+
+interface Exercise {
+  name: string;
+  muscle?: Muscle;
+  equipment?: Equipment;
+}
+
+const exercises: Exercise[] = [
+  {
+    name: 'Squat',
+    muscle: 'Quads',
+    equipment: 'Barbell',
+  },
+  {
+    name: 'Deadlift',
+    muscle: 'Hamstrings',
+    equipment: 'Barbell',
+  },
+  {
+    name: 'Bench Press',
+    muscle: 'Chest',
+    equipment: 'Barbell',
+  },
+]
 
 export default function HomeScreen() {
   return (
@@ -15,7 +45,20 @@ export default function HomeScreen() {
         />
       }>
       <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
+        <ThemedText type="title">Exercises</ThemedText>
+      </ThemedView>
+      <ThemedView>
+      <FlatList
+        data={exercises}
+        keyExtractor={(item) => item.name}
+        renderItem={({ item }) => (
+          <ThemedView style={styles.exerciseItem}>
+            <ThemedText style={styles.exerciseName}>{item.name}</ThemedText>
+            <ThemedText style={styles.exerciseDetail}>{item.muscle}</ThemedText>
+            <ThemedText style={styles.exerciseDetail}>{item.equipment}</ThemedText>
+          </ThemedView>
+        )}
+      />
       </ThemedView>
     </ParallaxScrollView>
   );
@@ -33,5 +76,16 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     position: 'absolute',
+  },
+  exerciseItem: {
+    flexDirection: 'row',
+  },
+  exerciseName: {
+    flex: 2,
+    fontWeight: '600',
+  },
+  exerciseDetail: {
+    flex: 1,
+    textAlign: 'center',
   },
 });
