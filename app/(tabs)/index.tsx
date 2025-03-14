@@ -3,18 +3,7 @@ import { Image, StyleSheet, FlatList } from 'react-native';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
-
-type Muscle = "Shoulders" | "Biceps" | "Triceps" | "Forearms" | "Chest" | 
-  "Abs" | "Traps" | "Back" | "Lower Back" | "Glutes" | "Quads" | 
-  "Hamstrings" | "Calves";
-
-type Equipment = "Barbell" | "Dumbbell" | "Cable" | "Machine" | "Bodyweight";
-
-interface Exercise {
-  name: string;
-  muscle?: Muscle;
-  equipment?: Equipment;
-}
+import { Exercise } from '@/types/exercise';
 
 const exercises: Exercise[] = [
   {
