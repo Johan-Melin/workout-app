@@ -1,4 +1,5 @@
 import { Image, StyleSheet, FlatList } from 'react-native';
+import { Link } from 'expo-router';
 
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
@@ -23,7 +24,7 @@ const exercises: Exercise[] = [
   },
 ]
 
-const workouts: Workout[] = [
+export const workouts: Workout[] = [
   {
     name: 'Foundation Strength',
     exercises: [
@@ -62,10 +63,17 @@ export default function HomeScreen() {
           data={workouts}
           keyExtractor={(item) => item.name}
           renderItem={({ item }) => (
-            <ThemedView style={styles.exerciseItem}>
-              <ThemedText style={styles.exerciseName}>{item.name}</ThemedText>
-              <ThemedText style={styles.exerciseDetail}>{item.exercises.length} exercises</ThemedText>
-            </ThemedView>
+            <Link 
+              href={{
+                pathname: '/workout/[name]',
+                params: { name: item.name }
+              }}
+            >
+              <ThemedView style={styles.exerciseItem}>
+                <ThemedText style={styles.exerciseName}>{item.name}</ThemedText>
+                <ThemedText style={styles.exerciseDetail}>{item.exercises.length} exercises</ThemedText>
+              </ThemedView>
+            </Link>
           )}
         />
       </ThemedView>
@@ -102,6 +110,7 @@ const styles = StyleSheet.create({
   },
   exerciseItem: {
     flexDirection: 'row',
+    width: '100%'
   },
   exerciseName: {
     flex: 2,
