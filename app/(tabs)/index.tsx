@@ -3,7 +3,7 @@ import { Image, StyleSheet, FlatList } from 'react-native';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
-import { Exercise } from '@/types/exercise';
+import { Exercise, Workout } from '@/types/exercise';
 
 const exercises: Exercise[] = [
   {
@@ -23,6 +23,29 @@ const exercises: Exercise[] = [
   },
 ]
 
+const workouts: Workout[] = [
+  {
+    name: 'Foundation Strength',
+    exercises: [
+      {
+        name: 'Squat',
+        muscle: 'Quads',
+        equipment: 'Barbell',
+      },
+      {
+        name: 'Deadlift',
+        muscle: 'Hamstrings',
+        equipment: 'Barbell',
+      },
+      {
+        name: 'Bench Press',
+        muscle: 'Chest',
+        equipment: 'Barbell',
+      },
+    ],
+  },
+]
+
 export default function HomeScreen() {
   return (
     <ParallaxScrollView
@@ -33,21 +56,32 @@ export default function HomeScreen() {
           style={styles.reactLogo}
         />
       }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Exercises</ThemedText>
+      <ThemedView>
+        <ThemedText type="title">Workouts</ThemedText>
+        <FlatList
+          data={workouts}
+          keyExtractor={(item) => item.name}
+          renderItem={({ item }) => (
+            <ThemedView style={styles.exerciseItem}>
+              <ThemedText style={styles.exerciseName}>{item.name}</ThemedText>
+              <ThemedText style={styles.exerciseDetail}>{item.exercises.length} exercises</ThemedText>
+            </ThemedView>
+          )}
+        />
       </ThemedView>
       <ThemedView>
-      <FlatList
-        data={exercises}
-        keyExtractor={(item) => item.name}
-        renderItem={({ item }) => (
-          <ThemedView style={styles.exerciseItem}>
-            <ThemedText style={styles.exerciseName}>{item.name}</ThemedText>
-            <ThemedText style={styles.exerciseDetail}>{item.muscle}</ThemedText>
-            <ThemedText style={styles.exerciseDetail}>{item.equipment}</ThemedText>
-          </ThemedView>
-        )}
-      />
+        <ThemedText type="title">Exercises</ThemedText>
+        <FlatList
+          data={exercises}
+          keyExtractor={(item) => item.name}
+          renderItem={({ item }) => (
+            <ThemedView style={styles.exerciseItem}>
+              <ThemedText style={styles.exerciseName}>{item.name}</ThemedText>
+              <ThemedText style={styles.exerciseDetail}>{item.muscle}</ThemedText>
+              <ThemedText style={styles.exerciseDetail}>{item.equipment}</ThemedText>
+            </ThemedView>
+          )}
+        />
       </ThemedView>
     </ParallaxScrollView>
   );

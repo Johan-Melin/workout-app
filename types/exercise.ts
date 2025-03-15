@@ -10,3 +10,10 @@ export interface Exercise {
   muscle?: Muscle;
   equipment?: Equipment;
 }
+
+export interface Workout {
+    name: string;
+    exercises: Exercise[];
+  }
+  
+  
